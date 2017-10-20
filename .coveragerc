@@ -1,0 +1,10 @@
+[run]
+branch = True
+omit = *migrations*,
+       *urls*,
+       *test*,
+       *admin*,
+       ./meetings/config/*,
+       ./meetings/manage.py,
+       ./meetings/wsgi.py,
+       *__init__*
