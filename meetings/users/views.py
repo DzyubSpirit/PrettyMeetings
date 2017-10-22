@@ -1,5 +1,7 @@
 from rest_framework import viewsets, mixins
-from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .models import User
 from .permissions import IsUserOrReadOnly
@@ -21,3 +23,12 @@ class UserViewSet(mixins.CreateModelMixin,
         self.serializer_class = CreateUserSerializer
         self.permission_classes = (AllowAny,)
         return super(UserViewSet, self).create(request, *args, **kwargs)
+
+
+class ProfileAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
