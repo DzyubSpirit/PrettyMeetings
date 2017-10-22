@@ -7,7 +7,7 @@ from fabric.colors import cyan
 from fabric.operations import prompt
 
 current_dir = os.getcwd()
-env.project_name = 'meetings'
+env.project_name = 'meetups'
 env.branch = 'master'
 env.environments = ['dev',
                     'qa',

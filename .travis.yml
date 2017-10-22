@@ -5,26 +5,26 @@ services:
 python:
   - "2.7"
 before_script:
-- export DATABASE_URL=postgres://postgres@localhost/meetings
+- export DATABASE_URL=postgres://postgres@localhost/meetups
 - export DJANGO_SECRET=`openssl rand -base64 32`
-- psql -c 'CREATE DATABASE "meetings";' -U postgres
+- psql -c 'CREATE DATABASE "meetups";' -U postgres
 install:
   - "pip install -r requirements/test.txt"
 script:
-  - ./meetings/manage.py test meetings
+  - ./meetups/manage.py test meetups
 after_success:
   - coveralls
 
 deploy:
   provider: heroku
   app:
-    master: meetings-dev
-    qa: meetings-qa
-    prod: meetings-prod
+    master: meetups-dev
+    qa: meetups-qa
+    prod: meetups-prod
   on:
     repo: sychsergiy/ PrettyMeetings
   run:
-    - "./meetings/manage.py migrate"
+    - "./meetups/manage.py migrate"
 
 notifications:
   email: false
