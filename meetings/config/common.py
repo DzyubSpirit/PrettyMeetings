@@ -57,10 +57,10 @@ class Common(Configuration):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'pretty_meetings',
-            'USER': 'pretty_meetings_admin',
-            'PASSWORD': 'rootpass',
-            'HOST': 'localhost',
+            'NAME': '',
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',
             'PORT': '',
         }
     }
