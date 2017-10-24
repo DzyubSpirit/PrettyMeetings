@@ -1,20 +1,10 @@
-from django.contrib.auth import get_user_model
-
-from rest_framework.test import APITestCase, APIClient
-
-from authentication.models import Token
+from .base import BaseApiTestCase
 
 from ..models import Rule
 from ..serializers import RuleSerializer
 
 
-class RulesTestCase(APITestCase):
-    @staticmethod
-    def create_user(username, password):
-        user = get_user_model().objects.create(username=username)
-        user.set_password(password)
-        user.save()
-        return user
+class RulesTestCase(BaseApiTestCase):
 
     def create_rules(self):
         Rule.objects.create(
@@ -36,18 +26,11 @@ class RulesTestCase(APITestCase):
             end_time="2017-10-14T01:00:00+0000",
             period="day",
             category="CAN",
-            user=self.another_user,
+            user=self.not_authenticated_user,
         )
 
     def setUp(self):
-        self.client = APIClient()
-        self.client.login()
-
-        self.authenticated_user = self.create_user('test_username1', 'test_password1')
-        self.another_user = self.create_user('test_username2', 'test_password2')
-
-        token = Token.objects.get(user__username='test_username1')
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        super(RulesTestCase, self).setUp()
         self.create_rules()
 
     def test_rules_list_GET_return_200_status_code(self):
