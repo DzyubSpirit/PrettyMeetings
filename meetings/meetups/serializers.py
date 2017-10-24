@@ -5,7 +5,6 @@ from .models import Rule
 from users.serializers import UserSerializer
 
 
-
 class RuleSerializer(serializers.ModelSerializer):
     user = UserSerializer
 
