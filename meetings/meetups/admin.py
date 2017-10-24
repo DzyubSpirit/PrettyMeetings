@@ -1,5 +1,9 @@
 from django.contrib import admin
 
-from .models import Rule
+from . import models
 
-admin.site.register(Rule)
+admin.site.register(models.Rule)
+admin.site.register(models.Event)
+admin.site.register(models.EventUser)
+
+
