@@ -29,6 +29,9 @@ class Production(Common):
     SESSION_COOKIE_HTTPONLY = values.BooleanValue(True)
     SECURE_SSL_REDIRECT = values.BooleanValue(True)
 
+    # TODO: Domain should be specified for making requests only from our site
+    CORS_ORIGIN_ALLOW_ALL = True
+
     # Site
     # https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
     ALLOWED_HOSTS = ["*"]
