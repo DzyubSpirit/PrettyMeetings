@@ -17,10 +17,13 @@ bin/
 include/
 lib/
 local/
+man/
+share/
 
 
 *.log
 pip-log.txt
+pip-selfcheck.json
 
 .DS_Store
 
