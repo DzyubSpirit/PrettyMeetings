@@ -54,16 +54,7 @@ class Common(Configuration):
     )
 
     # Postgres
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': '',
-            'USER': '',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': '',
-        }
-    }
+    DATABASES = values.DatabaseURLValue('postgres://localhost/heroku_deploy')
 
     # General
     APPEND_SLASH = values.BooleanValue(False)
