@@ -7,11 +7,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Local(Common):
 
-    DEBUG = values.BooleanValue(True)
+    DEBUG = values.BooleanValue(False)
     for config in Common.TEMPLATES:
         config['OPTIONS']['debug'] = DEBUG
 
-    SECRET_KEY = 'not a secret'
+    # SECRET_KEY = 'not a secret'
     # Testing
     INSTALLED_APPS = Common.INSTALLED_APPS
     INSTALLED_APPS += ('django_nose',)
@@ -35,10 +35,10 @@ class Local(Common):
     VERSATILEIMAGEFIELD_SETTINGS['create_images_on_demand'] = True
 
     # Django RQ local settings
-    RQ_QUEUES = {
-        'default': {
-            'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'),
-            'DB': 0,
-            'DEFAULT_TIMEOUT': 500,
-        },
-    }
+    # RQ_QUEUES = {
+    #     'default': {
+    #         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'),
+    #         'DB': 0,
+    #         'DEFAULT_TIMEOUT': 500,
+    #     },
+    # }

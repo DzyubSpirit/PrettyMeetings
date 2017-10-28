@@ -18,7 +18,7 @@ class Production(Common):
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     INSTALLED_APPS = Common.INSTALLED_APPS
-    SECRET_KEY = values.SecretValue()
+    # SECRET_KEY = values.SecretValue()
 
     SECURE_HSTS_SECONDS = 60
     SECURE_HSTS_INCLUDE_SUBDOMAINS = values.BooleanValue(True)
@@ -31,7 +31,7 @@ class Production(Common):
 
     # Site
     # https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = [".herokuapp.com"]
 
     INSTALLED_APPS += ("gunicorn", )
 
@@ -60,39 +60,39 @@ class Production(Common):
     # https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control
     # Response can be cached by browser and any intermediary caches (i.e. it is "public") for up to 1 day
     # 86400 = (60 seconds x 60 minutes x 24 hours)
-    AWS_HEADERS = {
-        'Cache-Control': 'max-age=86400, s-maxage=86400, must-revalidate',
-    }
+    # AWS_HEADERS = {
+    #     'Cache-Control': 'max-age=86400, s-maxage=86400, must-revalidate',
+    # }
 
     # Static files
-    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+    # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
     # Caching
-    redis_url = urlparse.urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6379'))
-    CACHES = {
-        'default': {
-            'BACKEND': 'redis_cache.RedisCache',
-            'LOCATION': '{}:{}'.format(redis_url.hostname, redis_url.port),
-            'OPTIONS': {
-                'DB': 0,
-                'PASSWORD': redis_url.password,
-                'PARSER_CLASS': 'redis.connection.HiredisParser',
-                'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
-                'CONNECTION_POOL_CLASS_KWARGS': {
-                    'max_connections': 50,
-                    'timeout': 20,
-                }
-            }
-        }
-    }
+    # redis_url = urlparse.urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6379'))
+    # CACHES = {
+    #     'default': {
+    #         'BACKEND': 'redis_cache.RedisCache',
+    #         'LOCATION': '{}:{}'.format(redis_url.hostname, redis_url.port),
+    #         'OPTIONS': {
+    #             'DB': 0,
+    #             'PASSWORD': redis_url.password,
+    #             'PARSER_CLASS': 'redis.connection.HiredisParser',
+    #             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+    #             'CONNECTION_POOL_CLASS_KWARGS': {
+    #                 'max_connections': 50,
+    #                 'timeout': 20,
+    #             }
+    #         }
+    #     }
+    # }
 
     # Django RQ production settings
-    RQ_QUEUES = {
-        'default': {
-            'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'),
-            'DB': 0,
-            'DEFAULT_TIMEOUT': 500,
-        },
-    }
-
-    Common.VERSATILEIMAGEFIELD_SETTINGS['create_images_on_demand'] = False
+    # RQ_QUEUES = {
+    #     'default': {
+    #         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'),
+    #         'DB': 0,
+    #         'DEFAULT_TIMEOUT': 500,
+    #     },
+    # }
+    #
+    # Common.VERSATILEIMAGEFIELD_SETTINGS['create_images_on_demand'] = False

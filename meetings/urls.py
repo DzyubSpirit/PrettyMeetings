@@ -19,7 +19,6 @@ router.register(r'events', meetups_views.EventViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^django-rq/', include('django_rq.urls')),
     url(r'^api/v1/', include('authentication.urls')),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/profile/', users_views.ProfileAPIView.as_view(), name='profile'),
