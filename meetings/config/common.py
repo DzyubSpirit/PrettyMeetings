@@ -20,7 +20,6 @@ class Common(Configuration):
         # Third party apps
         'rest_framework',            # utilities for rest apis
         'rest_framework.authtoken',  # token authentication
-        'django_rq',                 # asynchronous queuing
         'versatileimagefield',       # image manipulation
 
         # Your apps
@@ -42,8 +41,10 @@ class Common(Configuration):
     )
 
     ROOT_URLCONF = 'urls'
+    ALLOWED_HOSTS = [".herokuapp.com"]
 
-    SECRET_KEY = 'Not a secret'
+
+    SECRET_KEY = '596dh3i)lh*%l-n(47cqj4fb!c466gd+v-79%^qcd!lf)0%x!-'
     WSGI_APPLICATION = 'wsgi.application'
 
     # Email
@@ -54,16 +55,7 @@ class Common(Configuration):
     )
 
     # Postgres
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': '',
-            'USER': '',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': '',
-        }
-    }
+    DATABASES = values.DatabaseURLValue('postgres://localhost/heroku_deploy')
 
     # General
     APPEND_SLASH = values.BooleanValue(False)
@@ -148,10 +140,6 @@ class Common(Configuration):
             'simple': {
                 'format': '%(levelname)s %(message)s'
             },
-            'rq_console': {
-                'format': '%(asctime)s %(message)s',
-                'datefmt': '%H:%M:%S',
-            },
         },
         'filters': {
             'require_debug_true': {
@@ -169,12 +157,6 @@ class Common(Configuration):
                 'filters': ['require_debug_true'],
                 'class': 'logging.StreamHandler',
                 'formatter': 'simple'
-            },
-            'rq_console': {
-                'level': 'DEBUG',
-                'class': 'rq.utils.ColorizingStreamHandler',
-                'formatter': 'rq_console',
-                'exclude': ['%(asctime)s'],
             },
             'mail_admins': {
                 'level': 'ERROR',
@@ -196,10 +178,6 @@ class Common(Configuration):
                 'level': 'ERROR',
                 'propagate': False,
             },
-            'rq.worker': {
-                'handlers': ['rq_console'],
-                'level': 'DEBUG'
-            }
         }
     }
 
@@ -241,4 +219,4 @@ class Common(Configuration):
     # Adds dashboard link for queues in /admin, This will override the default
     # admin template so it may interfere with other apps that modify the
     # default admin template. If you're using such an app, simply remove this.
-    RQ_SHOW_ADMIN_LINK = True
+    # RQ_SHOW_ADMIN_LINK = True

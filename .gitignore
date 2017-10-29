@@ -33,3 +33,4 @@ site
 .idea/
 
 local.py
+staticfiles/
